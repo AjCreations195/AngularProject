@@ -1,0 +1,32 @@
+.adduserbtn{
+    width: 30%;
+    font-weight: 600;  
+    font-size: large;
+}
+.adduserDiv{
+    text-align: right;
+    margin-right: 6em;
+}
+.table{
+    margin: 1%;
+    table-layout:fixed;
+}
+.table td { 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    word-wrap: break-word;
+}
+.userButtons{
+     width: 45%;
+     font-weight: 600;
+}
+.my-pagination /deep/ .ngx-pagination .current {
+    background: red;
+  }
+.search-box{
+    display: block;
+    margin: 0px auto 0 auto;
+    padding: 10px 20px;
+    max-width: 100%;
+    width:100%
+}

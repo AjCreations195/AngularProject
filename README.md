@@ -29,4 +29,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Here I used mobx for state management
 
-##Here the datas fetching from  a web api
+## Here the datas fetching from  a web api

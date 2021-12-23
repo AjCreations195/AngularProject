@@ -20,7 +20,7 @@
      width: 45%;
      font-weight: 600;
 }
-.my-pagination /deep/ .ngx-pagination .current {
+.my-pagination  deep/ .ngx-pagination .current {
     background: red;
   }
 .search-box{

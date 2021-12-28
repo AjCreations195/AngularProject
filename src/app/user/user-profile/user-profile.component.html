@@ -1,0 +1,61 @@
+<app-nav [addvisible]="false" [editvisible]="true"></app-nav>
+
+
+
+<!-- prfile-page -->
+<div class="container-fluid p-4">
+
+  <div *mobxAutorun class="pt-2" style="text-align: center;">
+    <h1>{{"DETAILS" | translate }} {{"PAGE" | translate }} </h1>
+  </div>
+  <div class="card card-inverse card-style p-4 " style=" border-color: #333;">
+
+    <div class="card-block">
+      <p class="card-title">Id: {{id}}</p>
+      <p class="card-text"><strong>Title: </strong> {{UserModelObj.title}}</p>
+      <p class="card-text"><strong>Description: </strong> {{UserModelObj.description}}</p>
+      <p>Organization_ID: 1</p>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="container">
+
+          <form autocomplete="off" [formGroup]="addUserForm" action="">
+            <div class="form-group">
+              <label for="title">{{"TITLE" | translate }}</label>
+              <input type="text" class="form-control" name="" formControlName="title" id="title"
+                placeholder="Please enter The title">
+            </div>
+            <div class="form-group">
+              <label for="description">{{"DESCRIPTION" | translate }}</label>
+              <input type="text" class="form-control" name="" formControlName="description" id="description"
+                placeholder="Enter the description">
+            </div>
+
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success " (click)="editUser()">{{"UPDATE" | translate }}</button>
+
+      </div>
+    </div>
+  </div>
+</div>

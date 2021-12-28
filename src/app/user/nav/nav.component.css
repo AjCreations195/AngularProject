@@ -10,3 +10,7 @@
  .navDiv a{
      font-size: 20px;
  }
+
+ ul li{
+    margin-left: 10px;
+}

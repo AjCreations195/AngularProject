@@ -20,6 +20,10 @@
      width: 45%;
      font-weight: 600;
 }
+.profileButton{
+    width: 93%;
+    font-weight: 600;
+}
 .my-pagination  deep/ .ngx-pagination .current {
     background: red;
   }
@@ -30,3 +34,10 @@
     max-width: 100%;
     width:100%
 }
+/* ul li{
+    margin-left: 10px;
+} */
+
+.nav-text{
+    font-size: 30px;
+ }

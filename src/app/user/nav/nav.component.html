@@ -1,15 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-dark ">
-  <div class="container-fluid ">
+<nav class="navbar navbar-light bg-secondary">
+  <div class="container-fluid">
     <a class="text-white navbar-brand nav-text" href="/user-details">{{"SAMPLE" | translate }} {{"APP" | translate
       }}</a>
-
-    <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
-      <i class="fas fa-bars"></i>
-    </button>
-
-    <div class="collapse navbar-collapse navDiv" id="navbarNav">
-      <ul class="navbar-nav">
-
+    <div class="d-flex ">
+      <ul class="navbar-nav list-group-horizontal ">
         <li class="nav-item">
           <select #langSelect (change)="translateService.use(langSelect.value)" class="nav-link">
             <option *ngFor="let lang of translateService.getLangs()" [value]="lang"
@@ -17,14 +11,13 @@
               {{lang}}</option>
           </select>
         </li>
-
         <li class="nav-item">
-          <a class="nav-link active text-white" aria-current="page" href="/user-details">{{"HOME" | translate }}</a>
+          <button *ngIf="addvisible" (click)="clickAddUser()" class="btn btn-success" type="button"
+            data-bs-toggle="modal" data-bs-target="#addModal">{{"ADD" | translate}} {{"USER" |
+            translate}}</button>
+          <button *ngIf="editvisible" (click)="onEdit()" class="btn btn-success " type="button" data-bs-toggle="modal"
+            data-bs-target="#addModal">{{"UPDATE" | translate}} </button>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="/add-user">{{"ADD" | translate }} {{"USER" | translate }}</a>
-        </li>
-
       </ul>
     </div>
   </div>

@@ -1,15 +1,14 @@
+<app-nav [addvisible]="true" [editvisible]="false" ></app-nav>
+
 <div *mobxAutorun class="bg-light">
   <div class="search-container">
     <input type="text" name="search-box" class="search-box" id="" [(ngModel)]="term" autocomplete="off"
       placeholder="Search...">
   </div>
   <div style="text-align: center;padding-top:25px; ">
-    <h1>{{"USER" | translate}} {{"REGISTER" | translate}}</h1>
+    <h1>{{"USER" | translate}} {{"DETAILS" | translate}}</h1>
   </div>
-  <div class="adduserDiv p-3">
-    <a class=" adduserbtn btn btn-success text-dark" routerLink="/add-user">{{"ADD" | translate}} {{"USER" |
-      translate}}</a>
-  </div>
+ 
   <div class="container p-4 tablediv">
     <table class=" table table-trapped">
       <thead>
@@ -29,10 +28,14 @@
           <td>{{data.id}}</td>
           <td>{{data.title}}</td>
           <td>{{data.description}}</td>
-          <a routerLink="/edit-user/{{data.id}}" class="btn userButtons text-dark bg-success m-1">{{"EDIT" |
+          <!-- <a routerLink="/edit-user/{{data.id}}" class="btn userButtons text-dark bg-success m-1" >{{"EDIT" |
+            translate}}</a> -->
+            <a (click)="onEdit(data)" class="btn userButtons text-dark bg-success m-1" type="button" data-bs-toggle="modal" data-bs-target="#addModal" >{{"EDIT" |
+              translate}}</a>
+            <a type="button" class="btn bg-danger userButtons m-1 text-dark" (click)="deleteUser(data.id)">{{"DELETE" |
             translate}}</a>
-          <a type="button" class="btn bg-danger userButtons m-1 text-dark" (click)="deleteUser(data.id)">{{"DELETE" |
-            translate}}</a>
+            <a routerLink="/user-profile/{{data.id}}" class="btn profileButton text-dark bg-success m-1" type="button"  >{{"PROFILE" |
+              translate}}</a>
         </tr>
 
       </tbody>
@@ -40,6 +43,57 @@
     </table>
 
   </div>
+
+
+  <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       
+<div class="container">
+
+  <form autocomplete="off" [formGroup]="addUserForm" action="">
+    <div class="form-group" [ngClass]="{'has-error':isSubmitted && _fc['title'].errors }">
+      <label for="title">{{"TITLE" | translate }}</label>
+      <input type="text" class="form-control" name="" formControlName="title" id="title"
+        placeholder="Please enter The title">
+      <span *ngIf="isSubmitted &&  _fc['title'].errors?.['required']" class="help-block">Title is required</span>
+      <span *ngIf="isSubmitted &&  _fc['title'].errors?.['minlength']" class="help-block">Title should be min 5
+        characters</span>
+      <span *ngIf="isSubmitted &&  _fc['title'].errors?.['pattern']" class="help-block">Title should contain only
+        characters</span>
+    </div>
+    <div class="form-group" [ngClass]="{'has-error':isSubmitted && _fc['description'].errors }">
+      <label for="description">{{"DESCRIPTION" | translate }}</label>
+      <input type="text" class="form-control" name="" formControlName="description" id="description"
+        placeholder="Enter the description">
+      <span *ngIf="isSubmitted &&  _fc['description'].errors?.['required']" class="help-block">Description is
+        required</span>
+      <span *ngIf="isSubmitted &&  _fc['description'].errors?.['minlength']" class="help-block">Description should be
+        min 10
+        characters .</span>
+    </div>
+  </form>
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" *ngIf="showAdd" class="btn btn-success " (click)="save()">{{"ADD" | translate }}</button>
+        <button type="button" *ngIf="showUpdate" class="btn btn-success " (click)="editUser()">{{"UPDATE" | translate }}</button>
+    
+      </div>
+    </div>
+  </div>
+</div>
 
   <pagination-controls class="text-center my-pagination" (pageChange)="page = $event"></pagination-controls>
 </div>

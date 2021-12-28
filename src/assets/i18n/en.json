@@ -24,5 +24,7 @@
     "YOU":"you",
     "SURE":"sure",
     "OK":"Ok",
-    "CANCEL":"Cancel"
+    "CANCEL":"Cancel",
+    "PAGE":"Page",
+    "PROFILE":"Profile"
 }

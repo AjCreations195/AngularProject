@@ -33,8 +33,8 @@ export class CommonService {
         })
       );
   }
-  AddUser(id: number, addUserForm: any) {
-    return this._http.post("https://v2-dev-api.isorobot.io/api/v1/organization-policies", addUserForm.value, { headers: this.Header })
+  AddUser(data: any) {
+    return this._http.post("https://v2-dev-api.isorobot.io/api/v1/organization-policies", data, { headers: this.Header })
       .pipe(
         map((res: any) => {
           this.CommonStore.setUsers(res)

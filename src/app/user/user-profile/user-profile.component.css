@@ -1,0 +1,25 @@
+.card-style{
+    text-align: center;
+    width: 50%;
+    background: -webkit-linear-gradient(top left, #4a494b, #868583);
+    background: -moz-linear-gradient(top left, #4a494b, #868583);
+    background: linear-gradient(to bottom right, #4a494b, #868583);
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+.btn{
+    border-radius: 0;
+    }
+    .btn-md {
+    border-width: 0;
+    outline: none;
+    border-radius: 0;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .6);
+    cursor: pointer;
+    } 
+
+ p{
+     font-size: 30px;
+     color: rgb(255, 251, 251);
+ }   

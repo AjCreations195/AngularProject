@@ -13,6 +13,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NavComponent } from './nav/nav.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json')
@@ -21,7 +23,8 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     routingComponents,
-    NavComponent
+    NavComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,6 @@ export function createTranslateLoader(http: HttpClient) {
   exports: [
     routingComponents, NavComponent
   ],
-  providers: [CommonService, CommonStore]
+  providers: [CommonService, CommonStore,UserDetailsComponent,UserProfileComponent]
 })
 export class UserModule { }

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { CommonService } from 'src/app/service/common.service';
+import { HttpErrorInterceptor } from 'src/app/service/http-error.interceptor';
 import { UserDetailsComponent } from '../user-details/user-details.component';
 import { UserModel } from '../user-details/user-details.model';
 
@@ -16,47 +17,41 @@ export class NavComponent implements OnInit {
   @Input() editvisible!: boolean
 
   UserModelObj: UserModel = new UserModel()
+  showAdd!: boolean;
+  showUpdate!: boolean;
+  addUserForm = this.UserDetailsComponent.addUserForm
+  id = this.route.snapshot.params['id']
+
   constructor(
     public translateService: TranslateService,
     public route: ActivatedRoute,
     public UserDetailsComponent: UserDetailsComponent,
-    private CommonService: CommonService
+    private CommonService: CommonService,
+    private HttpErrorInterceptor: HttpErrorInterceptor
   ) {
     this.translateService.addLangs(['en', 'ar'])
     this.translateService.setDefaultLang('en');
     this.translateService.use('en');
-
   }
 
-  showAdd!: boolean;
-  showUpdate!: boolean;
-  addUserForm = this.UserDetailsComponent.addUserForm
   ngOnInit(): void {
   }
-
-
 
   clickAddUser() {
     this.addUserForm.reset();
     this.showAdd = true;
     this.showUpdate = false;
   }
-
-  id = this.route.snapshot.params['id']
-
   onEdit() {
     this.CommonService.getCurrentData(this.id).subscribe((response: any) => {
       this.showAdd = false;
       this.showUpdate = true;
-
-
-      this.addUserForm.controls['title'].setValue(response.title)
-      this.addUserForm.controls['description'].setValue(response.description)
-
+      this.addUserForm.patchValue({
+        id: response.id,
+        title: response.title,
+        description: response.description,
+      })
     })
 
   }
-
-
-
 }

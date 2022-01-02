@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ChangeDetectorRef, Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { CommonStore } from 'src/app/stores/common-store';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class CommonService {
   auth = `Bearer ${this.authToken}`;
   Headers = new HttpHeaders();
   Header = this.Headers.set('Authorization', this.auth)
-
+  Error: string = ''
   constructor(
     private _http: HttpClient,
     private CommonStore: CommonStore) { }
@@ -31,14 +31,22 @@ export class CommonService {
           this.CommonStore.setUsers(res)
           return res;
         })
+
       );
+
   }
-  AddUser(data: any) {
+  AddUser(data: any): Observable<any> {
     return this._http.post("https://v2-dev-api.isorobot.io/api/v1/organization-policies", data, { headers: this.Header })
       .pipe(
         map((res: any) => {
           this.CommonStore.setUsers(res)
           return res;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          this.Error = error.error.errors.title[0]
+          console.log("jaffffff", this.Error);
+          this.CommonStore.setError(this.Error)
+          throw this.Error
         })
       );
   }
@@ -56,8 +64,21 @@ export class CommonService {
         })
       );
   }
-  editUser(id: number, data: any) {
+  editUser(id: number, data: any): Observable<any> {
     return this._http.put(this.url + id, data, { headers: this.Header })
+      .pipe(
+        map((res: any) => {
+          this.CommonStore.setUsers(res)
+          return res;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          this.Error = error.error.errors.title[0]
+          console.log("jaffffff", this.Error);
+          this.CommonStore.setError(this.Error)
+         throw this.Error
+        })
+
+      );
   }
 }
 

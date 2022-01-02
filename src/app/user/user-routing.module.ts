@@ -1,16 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddUserComponent } from './add-user/add-user.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
     {path:'',redirectTo:'/user-details',pathMatch:'full'},
     {path:'user-details', component:UserDetailsComponent},
-    {path:'add-user', component:AddUserComponent},
     {path:'user-profile/:id',component:UserProfileComponent},
-    {path:'edit-user/:id',component:EditUserComponent},
  ];
 
 @NgModule({
@@ -18,5 +14,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class UserRoutingModule { }
-export const routingComponents = [UserDetailsComponent, AddUserComponent, EditUserComponent]
+export const routingComponents = [UserDetailsComponent]
 

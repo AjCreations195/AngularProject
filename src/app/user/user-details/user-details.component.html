@@ -1,4 +1,4 @@
-<app-nav [addvisible]="true" [editvisible]="false" ></app-nav>
+<app-nav [addvisible]="true" [editvisible]="false"></app-nav>
 
 <div *mobxAutorun class="bg-light">
   <div class="search-container">
@@ -8,34 +8,34 @@
   <div style="text-align: center;padding-top:25px; ">
     <h1>{{"USER" | translate}} {{"DETAILS" | translate}}</h1>
   </div>
- 
   <div class="container p-4 tablediv">
     <table class=" table table-trapped">
       <thead>
         <tr>
-          <th>{{"ID" | translate}}</th>
-          <th>{{"TITLE" | translate}}</th>
-          <th>{{"DESCRIPTION" | translate}}</th>
+          <th (click)="sort('id')">{{"ID" | translate}}&nbsp; <i class="fa fa-sort"></i> </th>
+          <th (click)="sort('title')">{{"TITLE" | translate}}&nbsp;<i class="fa fa-sort"></i> </th>
+          <th (click)="sort('description')">{{"DESCRIPTION" | translate}}&nbsp;<i class="fa fa-sort"></i> </th>
           <th>{{"ACTIONS" | translate}}</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of CommonStore.userList.data   | filter:term  |
-         paginate: {
-            itemsPerPage: 10,
+        <tr *ngFor="let data of CommonStore.userList.data 
+        |orderBy : key :reverse
+         | filter:term 
+         | paginate: {
+            itemsPerPage: 5,
            currentPage: page,
            totalItems:totalLength} ">
-          <td>{{data.id}}</td>
-          <td>{{data.title}}</td>
-          <td>{{data.description}}</td>
-          <!-- <a routerLink="/edit-user/{{data.id}}" class="btn userButtons text-dark bg-success m-1" >{{"EDIT" |
-            translate}}</a> -->
-            <a (click)="onEdit(data)" class="btn userButtons text-dark bg-success m-1" type="button" data-bs-toggle="modal" data-bs-target="#addModal" >{{"EDIT" |
-              translate}}</a>
-            <a type="button" class="btn bg-danger userButtons m-1 text-dark" (click)="deleteUser(data.id)">{{"DELETE" |
+       
+         <td><a class=" profileButton" routerLink="/user-profile/{{data.id}}">{{data.id}}</a></td>
+          <td><a class=" profileButton" routerLink="/user-profile/{{data.id}}">{{data.title}}</a></td>
+          <td><a class=" profileButton" routerLink="/user-profile/{{data.id}}">{{data.description}}</a></td>
+        
+          <a (click)="onEdit(data)" class="btn userButtons text-dark bg-success m-1" type="button"
+            data-bs-toggle="modal" data-bs-target="#addModal">{{"EDIT" |
             translate}}</a>
-            <a routerLink="/user-profile/{{data.id}}" class="btn profileButton text-dark bg-success m-1" type="button"  >{{"PROFILE" |
-              translate}}</a>
+          <a type="button" class="btn bg-danger userButtons m-1 text-dark" (click)="deleteUser(data.id)">{{"DELETE" |
+            translate}}</a>
         </tr>
 
       </tbody>
@@ -47,53 +47,6 @@
 
   <!-- Button trigger modal -->
 
-<!-- Modal -->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New User</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       
-<div class="container">
-
-  <form autocomplete="off" [formGroup]="addUserForm" action="">
-    <div class="form-group" [ngClass]="{'has-error':isSubmitted && _fc['title'].errors }">
-      <label for="title">{{"TITLE" | translate }}</label>
-      <input type="text" class="form-control" name="" formControlName="title" id="title"
-        placeholder="Please enter The title">
-      <span *ngIf="isSubmitted &&  _fc['title'].errors?.['required']" class="help-block">Title is required</span>
-      <span *ngIf="isSubmitted &&  _fc['title'].errors?.['minlength']" class="help-block">Title should be min 5
-        characters</span>
-      <span *ngIf="isSubmitted &&  _fc['title'].errors?.['pattern']" class="help-block">Title should contain only
-        characters</span>
-    </div>
-    <div class="form-group" [ngClass]="{'has-error':isSubmitted && _fc['description'].errors }">
-      <label for="description">{{"DESCRIPTION" | translate }}</label>
-      <input type="text" class="form-control" name="" formControlName="description" id="description"
-        placeholder="Enter the description">
-      <span *ngIf="isSubmitted &&  _fc['description'].errors?.['required']" class="help-block">Description is
-        required</span>
-      <span *ngIf="isSubmitted &&  _fc['description'].errors?.['minlength']" class="help-block">Description should be
-        min 10
-        characters .</span>
-    </div>
-  </form>
-</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" *ngIf="showAdd" class="btn btn-success " (click)="save()">{{"ADD" | translate }}</button>
-        <button type="button" *ngIf="showUpdate" class="btn btn-success " (click)="editUser()">{{"UPDATE" | translate }}</button>
-    
-      </div>
-    </div>
-  </div>
-</div>
-
+  <app-modal [showAdd]="showAdd" [showUpdate]="showUpdate"></app-modal>
   <pagination-controls class="text-center my-pagination" (pageChange)="page = $event"></pagination-controls>
 </div>

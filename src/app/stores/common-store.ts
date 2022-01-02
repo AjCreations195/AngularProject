@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { observable, computed, action } from 'mobx-angular';
-
 @Injectable()
 export class CommonStore {
 
-  constructor() {
-  }
+  constructor() { }
 
   @observable
   user: any = [];
+
+  @observable  
+  Error: string = ''
+
+  @action setError(error:any){
+    this.Error=error
+  }
+
+  @computed get error(){
+    return this.Error
+  }
 
   @observable
   isSubmitted: boolean = false;
@@ -23,9 +31,6 @@ export class CommonStore {
   @computed UserId() {
     return this.id
   }
-  @observable
-  editUserForm: any;
-
   @action getCurrentData(id: number) {
     return this.userList.find((e: { id: number; }) => e.id == id);
   }

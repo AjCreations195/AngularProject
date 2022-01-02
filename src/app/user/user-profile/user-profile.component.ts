@@ -17,7 +17,6 @@ export class UserProfileComponent implements OnInit {
   addUserForm = this.UserDetailsComponent.addUserForm
   isSubmitted: boolean = false;
 
-
   constructor(
     private route: ActivatedRoute,
     private CommonService: CommonService,
@@ -25,27 +24,18 @@ export class UserProfileComponent implements OnInit {
     public UserDetailsComponent: UserDetailsComponent,
     public translateService: TranslateService
   ) {
-    this.translateService.addLangs(['en', 'ar'])
-    this.translateService.setDefaultLang('en');
-    this.translateService.use('en');
-
   }
 
   id = this.route.snapshot.params['id']
-  title: string = ''
-  description: string = ''
-  organization_id = 1
 
 
   ngOnInit(): void {
-    this.CommonService.getCurrentData(this.id).subscribe((response: any) => {
+     this.CommonService.getCurrentData(this.id).subscribe((response: any) => {
       this.CommonService.detectChanges(this.cdr)
-
 
       this.UserModelObj.id = response.id;
       this.UserModelObj.title = response.title;
       this.UserModelObj.description = response.description;
-
     })
 
   }
@@ -57,20 +47,4 @@ export class UserProfileComponent implements OnInit {
 
   }
 
-  editUser() {
-    this.UserModelObj.id = this.addUserForm.value.id;
-    this.UserModelObj.title = this.addUserForm.value.title;
-    this.UserModelObj.description = this.addUserForm.value.description;
-
-    this.CommonService.editUser(this.id, this.UserModelObj).subscribe(response => {
-
-      alert("Updated Succeesfully");
-      let ref = document.getElementById('cancel')
-      ref?.click();
-
-      this.addUserForm.reset();
-      this.UserDetailsComponent.getAll();
-    }
-    )
-  }
 }

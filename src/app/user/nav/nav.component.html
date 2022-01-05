@@ -1,7 +1,6 @@
 <nav class="navbar navbar-light bg-secondary">
   <div class="container-fluid">
-    <a class="text-white navbar-brand nav-text" href="/user-details">{{"SAMPLE" | translate }} {{"APP" | translate
-      }}</a>
+    <a class="text-white navbar-brand nav-text" href="/user-details">SAMPLE APP</a>
     <div class="d-flex ">
       <ul class="navbar-nav list-group-horizontal ">
         <li class="nav-item">
@@ -13,10 +12,9 @@
         </li>
         <li class="nav-item">
           <button *ngIf="addvisible" (click)="clickAddUser()" class="btn btn-success" type="button"
-            data-bs-toggle="modal" data-bs-target="#addModal">{{"ADD" | translate}} {{"USER" |
-            translate}}</button>
+            data-bs-toggle="modal" data-bs-target="#addModal">ADD USER</button>
           <button *ngIf="editvisible" (click)="onEdit()" class="btn btn-success " type="button" data-bs-toggle="modal"
-            data-bs-target="#addModal">{{"UPDATE" | translate}} </button>
+            data-bs-target="#addModal">UPDATE</button>
         </li>
       </ul>
     </div>

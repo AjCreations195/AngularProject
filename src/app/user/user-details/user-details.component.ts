@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonService } from '../../service/common.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CommonStore } from '../../stores/common-store'
+import { commonStore, CommonStore } from '../../stores/common-store'
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from './user-details.model';
@@ -14,15 +14,14 @@ import { HttpErrorInterceptor } from 'src/app/service/http-error.interceptor';
   styleUrls: ['./user-details.component.css']
 })
 
-
 export class UserDetailsComponent implements OnInit {
   [x: string]: any;
-
 
   addUserForm = new FormGroup({
     id: new FormControl(),
     title: new FormControl(),
     description: new FormControl(),
+    files:new FormControl(),
 
   });
   userList: any = []
@@ -36,7 +35,9 @@ export class UserDetailsComponent implements OnInit {
   showUpdate!: boolean;
   reverse!: boolean;
   key: string = 'id'
-  UserError: string = ''
+  UserError: string = '';
+  public currentPage: number = 1;
+  total: number = 0;
 
   constructor(
     private commonService: CommonService,
@@ -45,14 +46,14 @@ export class UserDetailsComponent implements OnInit {
     public CommonStore: CommonStore,
     public cdr: ChangeDetectorRef,
     public router: Router,
+    public route: ActivatedRoute,
     public translateService: TranslateService,
     public HttpErrorInterceptor: HttpErrorInterceptor,
   ) {
-
   }
 
   ngOnInit(): void {
-    this.getAll()
+    this.pageChange()
     this.showAdd = true;
     this.showUpdate = false;
     this.addUserForm = this._fb.group({
@@ -60,13 +61,13 @@ export class UserDetailsComponent implements OnInit {
       title: ['', [Validators.required]],
       description: [''],
       is_active: [1],
-      organization_id: [1]
+      organization_id: [1],
+      files:[]=[],
     });
-
+    this.pageChange(this.currentPage)
     this.addUserForm.reset();
   }
   clickAddUser() {
-    //  this.UserError=''
     this.addUserForm.reset();
     this.showAdd = true;
     this.showUpdate = false;
@@ -75,37 +76,15 @@ export class UserDetailsComponent implements OnInit {
   deleteUser(id: number) {
     if (confirm("Are you Sure?")) {
       this.commonService.deleteUser(id).subscribe(() => {
-        this.getAll();
+        this.pageChange();
       })
     }
-  }
-  getAll() {
-    this.commonService.getAll().subscribe((response) => {
-      this.commonService.detectChanges(this.cdr)
-      this.totalLength = response.data.length;
-    })
   }
 
   get _fc() {
     return this.addUserForm.controls;
   }
 
-  save() {
-    this.UserModelObj.title = this.addUserForm.value.title;
-    this.UserModelObj.description = this.addUserForm.value.description;
-
-    this.commonService.AddUser(this.UserModelObj).subscribe(Response => {
-      this.commonService.detectChanges(this.cdr)
-
-      alert('User Added Successfully');
-      let ref = document.getElementById('cancel')
-      ref?.click();
-      this.getAll();
-      this.addUserForm.reset();
-
-    })
-
-  }
   reset() {
     this.addUserForm.reset();
     this.addUserForm.controls['is_active'].setValue(1);
@@ -126,10 +105,15 @@ export class UserDetailsComponent implements OnInit {
     this.reverse = !this.reverse
   }
 
+  pageChange(newPage: number = 0) {
+    if (newPage) this.CommonStore.setCurrentPage(newPage)
+
+    this.commonService.getAll().subscribe((response) => {
+      this.commonService.detectChanges(this.cdr)
+      this.totalLength = response.data.length;
+      console.log("ressisss",response);
+      
+    })
+  }
+
 }
-
-
-
-
-
-

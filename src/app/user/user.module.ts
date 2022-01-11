@@ -20,6 +20,11 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { OrderModule } from 'ngx-order-pipe';
 import { HttpErrorInterceptor } from '../service/http-error.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { AngularFileUploaderModule } from "angular-file-uploader";
+import { AngularMyDatePickerModule } from 'angular-mydatepicker';
+import {MatDatepickerModule} from '@angular/material/datepicker'
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule } from '@angular/material/form-field'
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json')
@@ -45,6 +50,11 @@ export function createTranslateLoader(http: HttpClient) {
     RouterModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
+    AngularFileUploaderModule,
+    AngularMyDatePickerModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
     ToastrModule.forRoot({
       timeOut: 1000,
       progressBar: true,

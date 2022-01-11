@@ -5,3 +5,6 @@ table, th, td{
     border: 1px solid grey;
     
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

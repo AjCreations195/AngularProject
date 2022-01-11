@@ -1,21 +1,59 @@
 import { Injectable } from '@angular/core';
 import { observable, computed, action } from 'mobx-angular';
+import { UserModel, UserPaginationResponse } from '../user/user-details/user-details.model';
+import { UserDetailsComponent } from '../user/user-details/user-details.component';
 @Injectable()
 export class CommonStore {
 
   constructor() { }
 
   @observable
-  user: any = [];
+  user: UserModel[] = []
 
-  @observable  
+  @observable
   Error: string = ''
 
-  @action setError(error:any){
-    this.Error=error
+
+  @observable
+  currentPage: number = 1;
+
+  @observable
+  nextPage: number = 2;
+
+  @observable
+  itemsPerPage: number = 15;
+
+  @observable
+  loaded: boolean = false;
+
+  @observable
+  totalItems: number = 0;
+
+  @observable
+  from: number = 0;
+
+  @action
+  setUser(response: UserPaginationResponse) {
+
+    this.user = response.data;
+    this.currentPage = response.current_page;
+    this.itemsPerPage = response.per_page;
+    this.totalItems = response.total;
+    this.from = response.from;
+    this.loaded = true;
   }
 
-  @computed get error(){
+  @action
+  setCurrentPage(current_page: number) {
+    this.currentPage = current_page;
+  }
+
+
+  @action setError(error: any) {
+    this.Error = error
+  }
+
+  @computed get error() {
     return this.Error
   }
 
@@ -28,6 +66,7 @@ export class CommonStore {
   @action setUsers(user: any) {
     this.user = user;
   }
+
   @computed UserId() {
     return this.id
   }
@@ -35,8 +74,8 @@ export class CommonStore {
     return this.userList.find((e: { id: number; }) => e.id == id);
   }
 
-  @computed get userList() {
-    return this.user
+  @computed get userList(): UserModel[] {
+    return this.user.slice()
   }
 }
 

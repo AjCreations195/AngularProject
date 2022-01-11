@@ -15,27 +15,32 @@
           <th (click)="sort('id')">{{"ID" | translate}}&nbsp; <i class="fa fa-sort"></i> </th>
           <th (click)="sort('title')">{{"TITLE" | translate}}&nbsp;<i class="fa fa-sort"></i> </th>
           <th (click)="sort('description')">{{"DESCRIPTION" | translate}}&nbsp;<i class="fa fa-sort"></i> </th>
+         
           <th>{{"ACTIONS" | translate}}</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of CommonStore.userList.data 
+        <tr *ngFor="let data of CommonStore.userList 
         |orderBy : key :reverse
          | filter:term 
-         | paginate: {
-            itemsPerPage: 5,
-           currentPage: page,
-           totalItems:totalLength} ">
-       
-         <td><a class=" profileButton" routerLink="/user-profile/{{data.id}}">{{data.id}}</a></td>
+         |paginate : {
+          itemsPerPage:CommonStore.itemsPerPage,
+          currentPage:CommonStore.currentPage,
+          totalItems:CommonStore.totalItems}
+            ">
+
+
+          <td><a class=" profileButton" routerLink="/user-profile/{{data.id}}">{{data.id}}</a></td>
           <td><a class=" profileButton" routerLink="/user-profile/{{data.id}}">{{data.title}}</a></td>
           <td><a class=" profileButton" routerLink="/user-profile/{{data.id}}">{{data.description}}</a></td>
         
+
           <a (click)="onEdit(data)" class="btn userButtons text-dark bg-success m-1" type="button"
             data-bs-toggle="modal" data-bs-target="#addModal">{{"EDIT" |
             translate}}</a>
           <a type="button" class="btn bg-danger userButtons m-1 text-dark" (click)="deleteUser(data.id)">{{"DELETE" |
             translate}}</a>
+            
         </tr>
 
       </tbody>
@@ -48,5 +53,6 @@
   <!-- Button trigger modal -->
 
   <app-modal [showAdd]="showAdd" [showUpdate]="showUpdate"></app-modal>
-  <pagination-controls class="text-center my-pagination" (pageChange)="page = $event"></pagination-controls>
+  <pagination-controls [previousLabel]="'previous'" [nextLabel]="'next'" (pageChange)="pageChange($event)"
+    class="my-pagination"></pagination-controls>
 </div>

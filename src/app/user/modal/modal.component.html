@@ -24,7 +24,26 @@
         <input type="text" class="form-control" name="" formControlName="description" id="description"
           placeholder="Enter the description">
        </div>
-    </form>
+       <div class="form-group mt-1">
+         <label for="">Start Date</label><br>
+         <input angular-mydatepicker name="mydate"  [options]="myDatePickerOptions"
+         (click)="start.openCalendar()" placeholder="select date" #start="angular-mydatepicker"/>
+      </div>
+      
+      <div class="form-group mt-1">
+        <label for="">End Date</label><br>
+       
+        <input angular-mydatepicker name="mydate" placeholder="select date" [options]="myDatePickerOptions" 
+        (click)="end.openCalendar()" #end="angular-mydatepicker"/>
+     </div>
+       <div class="form-group mt-2">
+       <label for="">Upload File</label> 
+       <img class="mt-2" [src]="url" alt="" height="100"><br>
+       <input  type="file" class="form-control" multiple style="height: 100%;" accept="image/*" formControlName="files" id="files" class="file-upload"  (change)="onFileSelected($event)" #fileUpload >
+      </div>
+      <div>
+    </div>
+      </form>
   </div>
         </div>
         <div class="modal-footer">

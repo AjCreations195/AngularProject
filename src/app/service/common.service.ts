@@ -1,7 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { reportObserved } from 'mobx/dist/internal';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { CommonStore } from 'src/app/stores/common-store';
+import { commonStore, CommonStore } from 'src/app/stores/common-store';
+import { UserPaginationResponse } from '../user/user-details/user-details.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,8 @@ export class CommonService {
   Headers = new HttpHeaders();
   Header = this.Headers.set('Authorization', this.auth)
   Error: string = ''
+  fileName = '';
+
   constructor(
     private _http: HttpClient,
     private CommonStore: CommonStore) { }
@@ -24,11 +28,14 @@ export class CommonService {
     cdr.detectChanges();
   }
 
-  getAll() {
-    return this._http.get("https://v2-dev-api.isorobot.io/api/v1/organization-policies", { headers: this.Header })
+  getAll(): Observable<UserPaginationResponse> {
+    let params = `?page=${this.CommonStore.currentPage}`
+    return this._http.get<UserPaginationResponse>("https://v2-dev-api.isorobot.io/api/v1/organization-policies" + (params ? params : ''), { headers: this.Header })
       .pipe(
-        map((res: any) => {
-          this.CommonStore.setUsers(res)
+        map((res: UserPaginationResponse) => {
+          this.CommonStore.setUser(res)
+          console.log(res,"resssss");
+
           return res;
         })
 
@@ -36,11 +43,17 @@ export class CommonService {
 
   }
   AddUser(data: any): Observable<any> {
+    // const fd=new FormData;
+    // fd.append('image',file,file.name)
+    // data.append('image',file,file.name)
+    console.log("data",data);
+    
     return this._http.post("https://v2-dev-api.isorobot.io/api/v1/organization-policies", data, { headers: this.Header })
-      .pipe(
+    
+    .pipe(
         map((res: any) => {
           this.CommonStore.setUsers(res)
-          return res;
+          return res
         }),
         catchError((error: HttpErrorResponse) => {
           this.Error = error.error.errors.title[0]
@@ -73,12 +86,21 @@ export class CommonService {
         }),
         catchError((error: HttpErrorResponse) => {
           this.Error = error.error.errors.title[0]
-          console.log("jaffffff", this.Error);
           this.CommonStore.setError(this.Error)
-         throw this.Error
+          throw this.Error
         })
 
       );
   }
+  // onFileSelected(event: { target: { files: File[]; }; }) {
+  //   const file: File = event.target.files[0];
+  //   if (file) {
+  //     this.fileName = file.name;
+  //     const formData = new FormData();
+  //     formData.append("thumbnail", file);
+  //     const upload$ = this._http.post("https://v2-dev-api.isorobot.io/api/v1/organization-policies/", formData);
+  //     upload$.subscribe();
+  //   }
+  // }
 }
 

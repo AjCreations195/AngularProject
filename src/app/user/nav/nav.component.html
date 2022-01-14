@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light bg-secondary">
   <div class="container-fluid">
-    <a class="text-white navbar-brand nav-text" href="/user-details">SAMPLE APP</a>
+    <a class="text-white navbar-brand nav-text" href="/">SAMPLE APP</a>
     <div class="d-flex ">
       <ul class="navbar-nav list-group-horizontal ">
         <li class="nav-item">
@@ -11,6 +11,7 @@
           </select>
         </li>
         <li class="nav-item">
+
           <button *ngIf="addvisible" (click)="clickAddUser()" class="btn btn-success" type="button"
             data-bs-toggle="modal" data-bs-target="#addModal">ADD USER</button>
           <button *ngIf="editvisible" (click)="onEdit()" class="btn btn-success " type="button" data-bs-toggle="modal"

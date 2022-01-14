@@ -13,14 +13,14 @@
   
     <form autocomplete="off" [formGroup]="addUserForm" novalidate action="">
       <div class="form-group" >
-        <label for="title">{{"TITLE" | translate }}</label>
+        <label for="title">Title</label>
         <input type="text" class="form-control" name="" formControlName="title" id="title"
           placeholder="Please enter The title">
           <span  class="text-danger">
             {{commonStore.error}}</span>
          </div>
       <div class="form-group">
-        <label for="description">{{"DESCRIPTION" | translate }}</label>
+        <label for="description">Description</label>
         <input type="text" class="form-control" name="" formControlName="description" id="description"
           placeholder="Enter the description">
        </div>

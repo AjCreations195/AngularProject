@@ -22,9 +22,6 @@ import { HttpErrorInterceptor } from '../service/http-error.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { AngularMyDatePickerModule } from 'angular-mydatepicker';
-import {MatDatepickerModule} from '@angular/material/datepicker'
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule } from '@angular/material/form-field'
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json')
@@ -35,7 +32,7 @@ export function createTranslateLoader(http: HttpClient) {
     routingComponents,
     NavComponent,
     UserProfileComponent,
-    ModalComponent
+    ModalComponent,
   ],
   imports: [
     CommonModule,
@@ -52,9 +49,6 @@ export function createTranslateLoader(http: HttpClient) {
     Ng2SearchPipeModule,
     AngularFileUploaderModule,
     AngularMyDatePickerModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatFormFieldModule,
     ToastrModule.forRoot({
       timeOut: 1000,
       progressBar: true,

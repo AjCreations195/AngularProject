@@ -12,18 +12,11 @@
     <table class=" table table-trapped">
       <thead>
         <tr>
-<<<<<<< HEAD
-          <th (click)="sort('id')">{{"ID" | translate}}&nbsp; <i class="fa fa-sort"></i> </th>
-          <th (click)="sort('title')">{{"TITLE" | translate}}&nbsp;<i class="fa fa-sort"></i> </th>
-          <th (click)="sort('description')">{{"DESCRIPTION" | translate}}&nbsp;<i class="fa fa-sort"></i> </th>
+          <th (click)="sort('id')">Id&nbsp; <i class="fa fa-sort"></i> </th>
+          <th (click)="sort('title')">Title&nbsp;<i class="fa fa-sort"></i> </th>
+          <th (click)="sort('description')">Description&nbsp;<i class="fa fa-sort"></i> </th>
          
-          <th>{{"ACTIONS" | translate}}</th>
-=======
-          <th (click)="sort('id')">ID&nbsp; <i class="fa fa-sort"></i> </th>
-          <th (click)="sort('title')">TITLE&nbsp;<i class="fa fa-sort"></i> </th>
-          <th (click)="sort('description')">DESCRIPTION&nbsp;<i class="fa fa-sort"></i> </th>
-          <th>ACTIONS</th>
->>>>>>> 304ca457c590e016ae4a6c296454387dd64fb82b
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -42,18 +35,12 @@
           <td><a class=" profileButton" routerLink="/user-profile/{{data.id}}">{{data.description}}</a></td>
         
 
-          <a (click)="onEdit(data)" class="btn userButtons text-dark bg-success m-1" type="button"
-<<<<<<< HEAD
-            data-bs-toggle="modal" data-bs-target="#addModal">{{"EDIT" |
+          <a (click)="onEdit(data)" class="btn userButtons text-dark bg-success m-1" type="button" data-bs-toggle="modal" data-bs-target="#addModal">{{"EDIT" |
             translate}}</a>
           <a type="button" class="btn bg-danger userButtons m-1 text-dark" (click)="deleteUser(data.id)">{{"DELETE" |
             translate}}</a>
             
-=======
-            data-bs-toggle="modal" data-bs-target="#addModal">EDIT</a>
-          <a type="button" class="btn bg-danger userButtons m-1 text-dark" (click)="deleteUser(data.id)">DELETE</a>
->>>>>>> 304ca457c590e016ae4a6c296454387dd64fb82b
-        </tr>
+             </tr>
 
       </tbody>
 
@@ -65,11 +52,6 @@
   <!-- Button trigger modal -->
 
   <app-modal [showAdd]="showAdd" [showUpdate]="showUpdate"></app-modal>
-<<<<<<< HEAD
   <pagination-controls [previousLabel]="'previous'" [nextLabel]="'next'" (pageChange)="pageChange($event)"
     class="my-pagination"></pagination-controls>
 </div>
-=======
-  <pagination-controls class="text-center my-pagination" (pageChange)="page = $event"></pagination-controls>
-</div>
->>>>>>> 304ca457c590e016ae4a6c296454387dd64fb82b

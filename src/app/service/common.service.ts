@@ -4,7 +4,6 @@ import { reportObserved } from 'mobx/dist/internal';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { commonStore, CommonStore } from 'src/app/stores/common-store';
 import { UserPaginationResponse } from '../user/user-details/user-details.model';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -43,9 +42,6 @@ export class CommonService {
 
   }
   AddUser(data: any): Observable<any> {
-    // const fd=new FormData;
-    // fd.append('image',file,file.name)
-    // data.append('image',file,file.name)
     console.log("data",data);
     
     return this._http.post("https://v2-dev-api.isorobot.io/api/v1/organization-policies", data, { headers: this.Header })
@@ -92,15 +88,5 @@ export class CommonService {
 
       );
   }
-  // onFileSelected(event: { target: { files: File[]; }; }) {
-  //   const file: File = event.target.files[0];
-  //   if (file) {
-  //     this.fileName = file.name;
-  //     const formData = new FormData();
-  //     formData.append("thumbnail", file);
-  //     const upload$ = this._http.post("https://v2-dev-api.isorobot.io/api/v1/organization-policies/", formData);
-  //     upload$.subscribe();
-  //   }
-  // }
 }
 
